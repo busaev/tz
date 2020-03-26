@@ -11,7 +11,7 @@
             {{ form(form) }}
         </div>
         {% if paginator is defined %}
-            <div class="container">
+            <div class="container mb-3">
                 <div class="">
                     <a href="{{ path('download', queryParams) }}" class="btn btn-secondary" target="_blank">Скачать</a>
                 </div>
@@ -67,6 +67,7 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                {% if pagesCount is defined and pagesCount > 1 %}
                 <nav aria-label="...">
                     <ul class="pagination">
                         {% for i in 1..pagesCount %}
@@ -78,6 +79,7 @@
                         {% endfor %}
                     </ul>
                 </nav>
+                {% endif %}
             </div>
         {% endif %}
     </main>

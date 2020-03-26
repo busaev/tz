@@ -69,8 +69,8 @@ class RateImport
         $qb = $this->entityManager->createQueryBuilder()
             ->delete(Rate::class, 'r')
             ->where('r.date BETWEEN :from AND :to')
-            ->setParameter('from', $from,  \Doctrine\DBAL\Types\Types::DATE_MUTABLE)
-            ->setParameter('to', $to, \Doctrine\DBAL\Types\Types::DATE_MUTABLE)
+            ->setParameter('from', $from,  \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)
+            ->setParameter('to', $to, \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)
         ;
         $query = $qb->getQuery();
         $query->execute();
