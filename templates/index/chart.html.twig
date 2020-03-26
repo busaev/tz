@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+
+{% block body %}
+
+    {% set queryParams = app.request.query.all %}
+
+    <main role="main" class="container">
+        <div class="container">
+            {{ form(form) }}
+        </div>
+        <div class="container">
+            <div id="labels" data-labels="{{ labels|json_encode }}"></div>
+            <div id="rates" data-rates="{{ rates|json_encode }}"></div>
+            <div id="currency" data-currency="{{ currency.name ?? '' }}"></div>
+            <canvas id="myChart" width="400" height="150"></canvas>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+
+                    const ratesContainr = document.querySelector('#rates');
+                    const rates = JSON.parse(ratesContainr.dataset.rates);
+
+                    const labelsContainr = document.querySelector('#labels');
+                    const labels = JSON.parse(labelsContainr.dataset.labels);
+
+                    const currencyContainr = document.querySelector('#currency');
+                    const currency = currencyContainr.dataset.currency;
+
+                    if (rates) {
+                        const ctx = document.getElementById('myChart');
+                        const myChart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: currency,
+                                    data: rates,
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    }
+                });
+
+
+            </script>
+        </div>
+    </main>
+{% endblock %}

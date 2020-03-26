@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+
+{% block body %}
+
+    {% set queryParams = app.request.query.all %}
+
+    <main role="main" class="container">
+        <div class="container">
+            {{ form(form) }}
+        </div>
+        <div class="container">
+            {% if result.count is defined and result.count > 0 %}
+                <div class="alert alert-primary" role="alert">
+                    В рабочем проекте, конечно, так делать не стоит.
+                    Внешние запросы через какую-нибудь MQ
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">Добавлено {{ result.count ?? null }} записи(ей)</div>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}

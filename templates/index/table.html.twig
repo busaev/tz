@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+
+{% block body %}
+
+    {% set queryParams = app.request.query.all %}
+
+    <main role="main" class="container">
+        <div class="container">
+            {{ form(form) }}
+        </div>
+        {% if paginator is defined %}
+            <div class="container">
+                <div class="">
+                    <a href="{{ path('download', queryParams) }}" class="btn btn-secondary" target="_blank">Скачать</a>
+                </div>
+            </div>
+            <div class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">
+                            Дата
+                            {% set queryParams = queryParams|merge({sort: 'date', dir: 'asc'}) %}
+                            <a href="{{ path('table', queryParams) }}">
+                                <svg class="bi bi-arrow-down-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 01.708 0L8 10.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                                </svg>
+                            </a>
+                            {% set queryParams = queryParams|merge({sort: 'date', dir: 'desc'}) %}
+                            <a href="{{ path('table', queryParams) }}">
+                                <svg class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
+                                </svg>
+                            </a>
+                        </th>
+                        <th scope="col">
+                            Курс
+                            {% set queryParams = queryParams|merge({sort: 'rate', dir: 'asc'}) %}
+                            <a href="{{ path('table', queryParams) }}">
+                                <svg class="bi bi-arrow-down-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 01.708 0L8 10.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                                </svg>
+                            </a>
+                            {% set queryParams = queryParams|merge({sort: 'rate', dir: 'desc'}) %}
+                            <a href="{{ path('table', queryParams) }}">
+                                <svg class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
+                                </svg>
+                            </a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for idx, item in paginator %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{ item.date|date('d.m.Y') }}</td>
+                            <td>{{ item.rate }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        {% for i in 1..pagesCount %}
+                            {% set queryParams = queryParams|merge({page: i}) %}
+                            <li class="page-item{{ currentPage==i ? ' active' : '' }}">
+                                <a class="page-link" href="{{ path('table', queryParams) }}">
+                                    {{ i }}{{ currentPage==i ? '<span class="sr-only">(current)</span>' : '' }}
+                                </a></li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}
