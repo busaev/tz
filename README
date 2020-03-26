@@ -21,6 +21,9 @@
 права на файлик с БД
 > docker-compose exec fpm chmod 0757 var/data.db
 
+тестов всего парочка но они есть
+> docker-compose exec fpm ./bin/phpunit
+
 ### Сайт будет доступен по адресу
 > http://127.0.0.1:1180
 
