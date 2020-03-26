@@ -1,11 +1,23 @@
+Для развертывания проекта необходим Docker (с docker-compose)
+
+Сборка проекта
 docker-compose build
 
+Запуск
 docker-compose up -d
 
+Установка вендоров через composer
 docker-compose exec fpm composer install
 
+создание БД
+docker-compose exec fpm php bin/console doctrine:schema:create
+
+выполнение миграций
 docker-compose exec fpm php bin/console doctrine:migrations:migrate
 
+заполение БД
 docker-compose exec fpm php bin/console doctrine:fixtures:load
 
-docker-compose exec fpm php  hp bin/console app:rate:cbr
+команда для импорта вылюты
+docker-compose exec fpm php  hp bin/console app:rate:cbr 01.01.2019 31.12.2020
+Эту команду можно выполнять без параметров, тогда импортируются данные за сегодня
