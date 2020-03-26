@@ -28,5 +28,5 @@
 > http://127.0.0.1:1180
 
 команда для импорта вылюты
-> docker-compose exec fpm php bin/console app:rate:import 01.01.2019 31.12.2020
+> docker-compose exec fpm php bin/console app:rate:import 01.03.2020 31.03.2020
 Эту команду можно выполнять без параметров, тогда импортируются данные за сегодня
